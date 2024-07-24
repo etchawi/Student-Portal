@@ -1,0 +1,163 @@
+fetch('/find_roommate', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    // Your JSON data here
+  })
+})
+
+
+[
+  {
+    "first_name": "Alice",
+    "last_name": "Smith",
+    "department": "Marketing",
+    "phone_number": "1234567890",
+    "address": "123 Main St",
+    "city": "New York",
+    "state": "NY",
+    "zip_code": "10001",
+    "email": "alice@example.com",
+    "password_hash": "hashed_password_for_alice",
+    "move_in_date": "2024-05-01",
+    "gender_preference": "Female",
+    "max_price": 1500
+  },
+  {
+    "first_name": "Bob",
+    "last_name": "Brown",
+    "department": "Engineering",
+    "phone_number": "9876543210",
+    "address": "456 Elm St",
+    "city": "Los Angeles",
+    "state": "CA",
+    "zip_code": "90001",
+    "email": "bob@example.com",
+    "password_hash": "hashed_password_for_bob",
+    "move_in_date": "2024-06-01",
+    "gender_preference": "Male",
+    "max_price": 2000
+  },
+  {
+    "first_name": "Charlie",
+    "last_name": "Davis",
+    "department": "Human Resources",
+    "phone_number": "5555555555",
+    "address": "789 Oak St",
+    "city": "Chicago",
+    "state": "IL",
+    "zip_code": "60601",
+    "email": "charlie@example.com",
+    "password_hash": "hashed_password_for_charlie",
+    "move_in_date": "2024-05-15",
+    "gender_preference": "Female",
+    "max_price": 1800
+  },
+  {
+    "first_name": "David",
+    "last_name": "Evans",
+    "department": "Finance",
+    "phone_number": "6666666666",
+    "address": "101 Pine St",
+    "city": "San Francisco",
+    "state": "CA",
+    "zip_code": "94101",
+    "email": "david@example.com",
+    "password_hash": "hashed_password_for_david",
+    "move_in_date": "2024-06-15",
+    "gender_preference": "Male",
+    "max_price": 1700
+  },
+  {
+    "first_name": "Eva",
+    "last_name": "Foster",
+    "department": "Customer Service",
+    "phone_number": "4444444444",
+    "address": "202 Cedar St",
+    "city": "Seattle",
+    "state": "WA",
+    "zip_code": "98101",
+    "email": "eva@example.com",
+    "password_hash": "hashed_password_for_eva",
+    "move_in_date": "2024-05-01",
+    "gender_preference": "Female",
+    "max_price": 1600
+  },
+  {
+    "first_name": "Frank",
+    "last_name": "Garcia",
+    "department": "IT",
+    "phone_number": "3333333333",
+    "address": "303 Maple St",
+    "city": "Houston",
+    "state": "TX",
+    "zip_code": "77001",
+    "email": "frank@example.com",
+    "password_hash": "hashed_password_for_frank",
+    "move_in_date": "2024-07-01",
+    "gender_preference": "Male",
+    "max_price": 1900
+  },
+  {
+    "first_name": "Grace",
+    "last_name": "Hernandez",
+    "department": "Operations",
+    "phone_number": "2222222222",
+    "address": "404 Walnut St",
+    "city": "Miami",
+    "state": "FL",
+    "zip_code": "33101",
+    "email": "grace@example.com",
+    "password_hash": "hashed_password_for_grace",
+    "move_in_date": "2024-05-15",
+    "gender_preference": "Female",
+    "max_price": 1700
+  },
+  {
+    "first_name": "Harry",
+    "last_name": "Irwin",
+    "department": "Legal",
+    "phone_number": "1111111111",
+    "address": "505 Birch St",
+    "city": "Boston",
+    "state": "MA",
+    "zip_code": "02101",
+    "email": "harry@example.com",
+    "password_hash": "hashed_password_for_harry",
+    "move_in_date": "2024-06-01",
+    "gender_preference": "Male",
+    "max_price": 1800
+  },
+  {
+    "first_name": "Ivy",
+    "last_name": "Jones",
+    "department": "Sales",
+    "phone_number": "9999999999",
+    "address": "606 Pine St",
+    "city": "Atlanta",
+    "state": "GA",
+    "zip_code": "30301",
+    "email": "ivy@example.com",
+    "password_hash": "hashed_password_for_ivy",
+    "move_in_date": "2024-07-15",
+    "gender_preference": "Female",
+    "max_price": 2000
+  },
+  {
+    "first_name": "Jack",
+    "last_name": "Keller",
+    "department": "Research",
+    "phone_number": "8888888888",
+    "address": "707 Oak St",
+    "city": "Denver",
+    "state": "CO",
+    "zip_code": "80201",
+    "email": "jack@example.com",
+    "password_hash": "hashed_password_for_jack",
+    "move_in_date": "2024-05-01",
+    "gender_preference": "Male",
+    "max_price": 1500
+  }
+]

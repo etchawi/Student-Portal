@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 40px;
+          padding: 20px;
+          background-color: #f4f4f4;
+        }
+
+        form {
+          background: #ffffff;
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type=email], input[type=password] {
+          margin: 10px 0;
+          width: 100%;
+          padding: 15px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          background-color: #e0e0e0;
+        }
+
+        input[type=submit] {
+          padding: 15px 20px;
+          background-color: #007bff;
+          color: #ffffff;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+
+        input[type=submit]:hover {
+          background-color: #0056b3;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+          color: #0056b3;
+        }
+
+        p {
+          color: #546e7a;
+        }
+
+        .list-group-item {
+          background-color: #e7e7eb; /* Light grey background for list items */
+          color: #333; /* Dark text for readability */
+          border-color: #dee2e6; /* Grey border */
+        }
+
+        .list-group-item:hover, .list-group-item:focus {
+          background-color: #cfd2d6; /* Darker grey background on hover/focus */
+          color: #0056b3; /* Blue text on hover/focus */
+        }
+
+        .sign-out-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Welcome to Your Dashboard, {{ current_user.first_name }}</h1>
+    <div class="list-group">
+        <a href="{{ url_for('update_user', user_id=current_user.id) }}" class="list-group-item list-group-item-action">Update Information</a>
+        <a href="{{ url_for('search_textbooks') }}" class="list-group-item list-group-item-action">Search Textbooks</a>
+        <a href="{{ url_for('search_people') }}" class="list-group-item list-group-item-action">Search People</a>
+        <a href="{{ url_for('purchase_textbooks') }}" class="list-group-item list-group-item-action">Purchase Textbooks</a>
+        <a href="{{ url_for('find_roommate') }}" class="list-group-item list-group-item-action">Find Roommate</a>
+        <a href="{{ url_for('purchase_meal_plan') }}" class="list-group-item list-group-item-action">Purchase Meal Plan</a>
+        <a href="{{ url_for('purchase_bus_ticket') }}" class="list-group-item list-group-item-action">Purchase Bus Ticket</a>
+        <a href="{{ url_for('view_sports_activities') }}" class="list-group-item list-group-item-action">View Sports Activities</a>
+        <a href="{{ url_for('run_election_poll') }}" class="list-group-item list-group-item-action">Run Election Poll</a>
+    </div>
+    <!-- Sign-out button -->
+    <a href="http://127.0.0.1:5000/" class="btn btn-danger sign-out-btn">Sign Out</a>
+</div>
+
+<form id="logout-form" action="http://127.0.0.1:5000/" method="post">
+</form>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

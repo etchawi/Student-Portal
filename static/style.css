@@ -1,0 +1,56 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 40px;
+  padding: 20px;
+  background-color: #f4f4f4; /* Light grey background */
+}
+
+form {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+input[type=email], input[type=password] {
+  margin: 10px 0;
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #e0e0e0; /* Light Grey */
+}
+
+input[type=submit] {
+  padding: 15px 20px;
+  background-color: #007bff; /* Primary Blue */
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+input[type=submit]:hover {
+  background-color: #0056b3; /* Darker Blue */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #0056b3; /* Darker Blue */
+}
+
+p {
+  color: #546e7a; /* Grey Blue */
+}
+
+/* Additional styles for the dashboard */
+.list-group-item {
+  background-color: #e7e7eb; /* Light grey background for list items */
+  color: #333; /* Dark text for readability */
+  border-color: #dee2e6; /* Grey border */
+}
+
+.list-group-item:hover, .list-group-item:focus {
+  background-color: #cfd2d6; /* Darker grey background on hover/focus */
+  color: #0056b3; /* Blue text on hover/focus */
+}

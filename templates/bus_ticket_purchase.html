@@ -1,0 +1,188 @@
+<!-- bus_ticket_purchase.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Ticket Purchase</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff; /* Blue text color */
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        label {
+            display: block;
+            color: #333; /* Grey text color */
+        }
+
+        input[type="checkbox"],
+        input[type="number"],
+        input[type="button"] {
+            margin-bottom: 10px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            background-color: #007bff; /* Blue background color */
+            color: #fff; /* White text color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="button"]:hover {
+            background-color: #0056b3; /* Darker blue background color on hover */
+        }
+
+        #totalCost {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+            color: #007bff; /* Blue text color */
+        }
+
+        #paymentInfo {
+        max-width: 400px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9; /* Light grey background color */
+    }
+
+    #paymentInfo h2 {
+        color: #007bff; /* Blue text color */
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    #paymentInfo label {
+        color: #333; /* Grey text color */
+    }
+
+    #paymentInfo input[type="text"],
+    #paymentInfo input[type="button"] {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+
+    #paymentInfo input[type="button"] {
+        background-color: #007bff; /* Blue background color */
+        color: #fff; /* White text color */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #paymentInfo input[type="button"]:hover {
+        background-color: #0056b3; /* Darker blue background color on hover */
+    }
+    
+    #home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #home-button:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Home button -->
+    <button id="home-button" onclick="window.location.href='/dashboard'">Home</button>
+    <h1>Bus Ticket Purchase</h1>
+    <form id="ticketForm">
+        <label for="zones">Select Zones:</label><br>
+        <input type="checkbox" id="zone1" name="zones" value="zone1" data-price="2">
+        <label for="zone1">Zone 1 ($2)</label><br>
+        <input type="checkbox" id="zone2" name="zones" value="zone2" data-price="4">
+        <label for="zone2">Zone 2 ($4)</label><br>
+        <input type="checkbox" id="zone3" name="zones" value="zone3" data-price="6">
+        <label for="zone3">Zone 3 ($6)</label><br>
+        <br>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" min="1" value="1"><br>
+        <br>
+        <input type="checkbox" id="bus-card" name="bus-card" value="bus-card" data-price="40">
+        <label for="bus-card">Add Bus Card ($40)</label><br>
+        <br>
+        <input type="button" value="Calculate Total Cost" onclick="calculateTotal()">
+    </form>
+
+    <p id="totalCost">Total Cost: $0</p>
+
+    <script>
+        function calculateTotal() {
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            var quantity = parseInt(document.getElementById('quantity').value);
+            var total = 0;
+
+            checkboxes.forEach(function(checkbox) {
+                var price = parseInt(checkbox.getAttribute('data-price'));
+                total += price;
+            });
+
+            total *= quantity;
+
+            document.getElementById('totalCost').textContent = 'Total Cost: $' + total;
+                        // Add payment information section
+                        var paymentInfoDiv = document.createElement('div');
+            paymentInfoDiv.id = 'paymentInfo';
+            paymentInfoDiv.innerHTML = `
+                <h2>Enter Payment Details</h2>
+                <label for="cardNumber">Card Number:</label><br>
+                <input type="text" id="cardNumber" name="cardNumber"><br>
+                <label for="expiryDate">Expiry Date:</label><br>
+                <input type="text" id="expiryDate" name="expiryDate"><br>
+                <label for="cvv">CVV:</label><br>
+                <input type="text" id="cvv" name="cvv"><br>
+                <br>
+                <input type="button" value="Submit Payment" onclick="submitPayment()">
+            `;
+            document.body.appendChild(paymentInfoDiv);
+        }
+
+        function submitPayment() {
+            // Add logic to submit payment
+            alert('Payment submitted successfully!');
+    
+        }
+    </script>
+</body>
+</html>

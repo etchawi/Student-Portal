@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Textbooks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            padding: 20px;
+            background-color: #f4f4f4; /* Light grey background */
+        }
+
+        form {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type=email], input[type=password], input[type=text], input[type=number] {
+            margin: 10px 0;
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #e0e0e0; /* Light Grey */
+        }
+
+        input[type=submit], button {
+            padding: 15px 20px;
+            background-color: #007bff; /* Primary Blue */
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type=submit]:hover, button:hover {
+            background-color: #0056b3; /* Darker Blue */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: #0056b3; /* Darker Blue */
+        }
+
+        p {
+            color: #546e7a; /* Grey Blue */
+        }
+
+        .home-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #007bff; /* Primary Blue */
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .home-button:hover {
+            background-color: #0056b3; /* Darker Blue */
+        }
+
+        /* New style for credit card input */
+        .credit-card-input {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: calc(100% - 32px); /* Adjust width for padding */
+            background-color: #e0e0e0; /* Light Grey */
+        }
+    </style>
+</head>
+<body>
+    <button class="home-button" onclick="goToHome()">Home</button>
+    <h1>Purchase Textbooks</h1>
+    <h2>Purchase Form</h2>
+    <form method="POST" id="purchaseForm">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+        <label for="textbook">Textbook:</label>
+        <select id="textbook" name="textbook">
+            {% for textbook in textbooks %}
+                <option value="{{ textbook.id }}" data-price="{{ textbook.price }}">{{ textbook.title }} - {{ textbook.author }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" value="1"><br><br>
+
+        <label for="promo_code">Promo Code:</label>
+        <input type="text" id="promo_code" name="promo_code" value=""><br><br>
+
+        <button type="button" onclick="addToCart()">Add to Cart</button>
+        <button type="button" onclick="applyPromo()">Apply Promo</button>
+    </form>
+
+    <div id="cartSummary" style="display: none;">
+        <h2>Cart Summary</h2>
+        <ul id="cartList"></ul>
+        <p id="priceBeforePromoText" style="display: none;">Price before promo: <span id="priceBeforePromo">$0.00</span></p>
+        <p id="priceAfterPromoText" style="display: none;">Price after promo: <span id="priceAfterPromo">$0.00</span></p>
+
+        <!-- Credit card input for checkout -->
+        <label for="credit_card">Credit Card Number:</label>
+        <input type="text" id="credit_card" class="credit-card-input" name="credit_card" placeholder="Enter your credit card number"><br><br>
+
+        <button onclick="checkout()">Checkout</button>
+    </div>
+
+    <script>
+        var cart = [];
+
+        function addToCart() {
+            var textbookSelect = document.getElementById('textbook');
+            var quantityInput = document.getElementById('quantity');
+            var selectedTextbookOption = textbookSelect.options[textbookSelect.selectedIndex];
+            var textbook = {
+                id: selectedTextbookOption.value,
+                title: selectedTextbookOption.textContent,
+                price: parseFloat(selectedTextbookOption.getAttribute('data-price')),
+                quantity: parseInt(quantityInput.value)
+            };
+            cart.push(textbook);
+            updateCartSummary();
+        }
+
+        function updateCartSummary() {
+            var cartList = document.getElementById('cartList');
+            cartList.innerHTML = '';
+            var totalBeforePromo = 0;
+            cart.forEach(function(item) {
+                var listItem = document.createElement('li');
+                listItem.textContent = item.title + ' - Quantity: ' + item.quantity + ' - Price: $' + (item.price * item.quantity).toFixed(2);
+                cartList.appendChild(listItem);
+                totalBeforePromo += item.price * item.quantity;
+            });
+
+            document.getElementById('priceBeforePromo').textContent = '$' + totalBeforePromo.toFixed(2);
+            if (totalBeforePromo >= 200) {
+                alert('Congrats! You have unlocked a promo code "PROMO" for your next visit.');
+            }
+            document.getElementById('cartSummary').style.display = 'block';
+        }
+
+        function applyPromo() {
+            var promoCodeInput = document.getElementById('promo_code');
+            var promoCode = promoCodeInput.value.trim().toUpperCase();
+            if (promoCode === 'PROMO') {
+                var totalBeforePromo = parseFloat(document.getElementById('priceBeforePromo').textContent.slice(1));
+                var discount = totalBeforePromo * 0.10; // 10% discount
+                var totalAfterPromo = totalBeforePromo - discount;
+                document.getElementById('priceAfterPromo').textContent = '$' + totalAfterPromo.toFixed(2);
+                document.getElementById('priceAfterPromoText').style.display = 'block'; // Make sure to show the element
+                alert('Promo code applied successfully! 10% discount has been applied.');
+            } else {
+                alert('Invalid promo code!');
+            }
+        }
+
+        function checkout() {
+            var creditCardNumber = document.getElementById('credit_card').value;
+            if (creditCardNumber) {
+                alert('Thank you for your purchase. Your order is being processed.');
+                cart = [];
+                updateCartSummary();
+            } else {
+                alert('Please enter a credit card number to complete the checkout.');
+            }
+        }
+
+        function goToHome() {
+            window.location.href = '/dashboard';
+        }
+    </script>
+</body>
+</html>

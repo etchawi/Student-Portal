@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <style>
+        /* Add your custom CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            padding: 20px;
+            background-color: #f4f4f4; /* Light grey background */
+        }
+
+        form {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type=email], input[type=password] {
+            margin: 10px 0;
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #e0e0e0; /* Light Grey */
+            color: #0056b3; /* Blue */
+        }
+
+        input[type=submit] {
+            padding: 15px 20px;
+            background-color: #007bff; /* Primary Blue */
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type=submit]:hover {
+            background-color: #0056b3; /* Darker Blue */
+        }
+
+        h2 {
+            color: #0056b3; /* Blue */
+        }
+
+        p.blue-text {
+            color: #0056b3; /* Blue */
+        }
+
+        .grey-background {
+            background-color: #f2f2f2; /* Light Grey */
+        }
+
+        /* Error message style */
+        .errors {
+            color: red;
+            font-style: italic;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h2>Reset Password</h2>
+    <p class="blue-text">Please enter your email address to request a password reset:</p>
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <div class="grey-background">
+            {{ form.email.label }}
+            {{ form.email(size=32) }}
+            {% if form.email.errors %}
+                <ul class="errors">
+                    {% for error in form.email.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div>
+            <input type="submit" value="Request Password Reset">
+        </div>
+    </form>
+{% endblock %}

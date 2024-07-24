@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meal Plan Purchase</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            padding: 20px;
+            background-color: #f4f4f4; /* Light grey background */
+            color: #546e7a; /* Grey Blue */
+        }
+
+        h1 {
+            color: #0056b3; /* Darker Blue */
+        }
+
+        form {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        select, input[type=text] {
+            margin: 10px 0;
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #e0e0e0; /* Light Grey */
+        }
+
+        input[type=submit], button[type=button] {
+            padding: 15px 20px;
+            background-color: #007bff; /* Primary Blue */
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type=submit]:hover, button[type=button]:hover {
+            background-color: #0056b3; /* Darker Blue */
+        }
+
+        h2 {
+            color: #0056b3; /* Darker Blue */
+        }
+
+        /* Home button style */
+        #home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #home-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        function showPaymentOptions() {
+            var paymentMethod = document.getElementById("payment-method").value;
+            var monthOptions = document.getElementById("month-options");
+            var semesterOptions = document.getElementById("semester-options");
+
+            if (paymentMethod === "month") {
+                monthOptions.style.display = "block";
+                semesterOptions.style.display = "none";
+            } else if (paymentMethod === "semester") {
+                monthOptions.style.display = "none";
+                semesterOptions.style.display = "block";
+            }
+        }
+
+        function calculateTotal() {
+            var paymentMethod = document.getElementById("payment-method").value;
+            var total = 0;
+
+            if (paymentMethod === "month") {
+                var selectedMonth = document.getElementById("month").value;
+                // Calculate total for monthly payment
+                total = 600;
+            } else if (paymentMethod === "semester") {
+                // Calculate total for semester payment with discount
+                total = 600 * 4 * 0.95;
+            }
+
+            document.getElementById("total").innerHTML = "$" + total.toFixed(2);
+
+            // Show payment info form when total is calculated
+            document.getElementById("payment-info").style.display = "block";
+        }
+    </script>
+</head>
+<body>
+    <!-- Home button -->
+    <button id="home-button" onclick="window.location.href='/dashboard'">Home</button>
+
+    <h1>Meal Plan Purchase</h1>
+    <form>
+        <label for="payment-method">Payment Method:</label>
+        <select id="payment-method" onchange="showPaymentOptions()">
+            <option value="month">By Month</option>
+            <option value="semester">By Semester (5% discount)</option>
+        </select>
+        <div id="month-options">
+            <label for="month">Select Month:</label>
+            <select id="month">
+                <option value="January">January</option>
+                <option value="February">February</option>
+                <option value="March">March</option>
+                <option value="April">April</option>
+                <option value="May">May</option>
+                <option value="June">June</option>
+                <option value="July">July</option>
+                <option value="August">August</option>
+                <option value="September">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+                <option value="December">December</option>
+                <!-- Add options for other months -->
+            </select>
+        </div>
+        <div id="semester-options" style="display: none;">
+            <p>No additional options for semester payment.</p>
+        </div>
+        <button type="button" onclick="calculateTotal()">BUY</button>
+    </form>
+    <div id="total"></div>
+    <div id="payment-info" style="display: none;">
+        <h2>Payment Information</h2>
+        <form>
+            <label for="card-number">Card Number:</label>
+            <input type="text" id="card-number" name="card-number" required><br><br>
+            <label for="expiration-date">Expiration Date:</label>
+            <input type="text" id="expiration-date" name="expiration-date" placeholder="MM/YY" required><br><br>
+            <label for="cvc">CVC:</label>
+            <input type="text" id="cvc" name="cvc" required><br><br>
+            <button type="submit">Pay Now</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Events</title>
+</head>
+<body>
+    <h1>View Events</h1>
+    <label for="start">Start date:</label>
+    <input type="date" id="start" name="start-date">
+    <label for="end">End date:</label>
+    <input type="date" id="end" name="end-date">
+    <button onclick="filterEvents()">Search</button>
+
+    <div id="eventsContainer"></div>
+
+    <script>
+        // Parse events from the server-side template
+        const events = {{ events|tojson }};
+
+        function filterEvents() {
+            const startDate = new Date(document.getElementById('start').value);
+            const endDate = new Date(document.getElementById('end').value);
+            const filteredEvents = events.filter(event => {
+                const eventStartDate = new Date(event.start_date);
+                const eventEndDate = new Date(event.end_date);
+                return eventStartDate >= startDate && eventEndDate <= endDate;
+            });
+            
+            displayEvents(filteredEvents);
+        }
+
+        function displayEvents(events) {
+            const container = document.getElementById('eventsContainer');
+            container.innerHTML = ''; // Clear previous results
+            const eventsByMonth = {};
+
+            events.forEach(event => {
+                const month = event.start_date.substring(0, 7); // YYYY-MM
+                if (!eventsByMonth[month]) {
+                    eventsByMonth[month] = [];
+                }
+                eventsByMonth[month].push(event);
+            });
+
+            Object.keys(eventsByMonth).forEach(month => {
+                const monthHeader = document.createElement('h3');
+                monthHeader.textContent = month;
+                container.appendChild(monthHeader);
+                const list = document.createElement('ul');
+                eventsByMonth[month].forEach(event => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `${event.name} - from ${event.start_date.substring(0, 10)} to ${event.end_date.substring(0, 10)}`;
+                    list.appendChild(listItem);
+                });
+                container.appendChild(list);
+            });
+        }
+    </script>
+</body>
+</html>

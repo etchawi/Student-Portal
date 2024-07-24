@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Find Roommate</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            padding: 20px;
+            background-color: #f4f4f4; /* Light grey background */
+        }
+
+        form {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type=email], input[type=password], input[type=date], select {
+            margin: 10px 0;
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #e0e0e0; /* Light Grey */
+        }
+
+        input[type=submit], button {
+            padding: 15px 20px;
+            background-color: #007bff; /* Primary Blue */
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type=submit]:hover, button:hover {
+            background-color: #0056b3; /* Darker Blue */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: #0056b3; /* Darker Blue */
+        }
+
+        p {
+            color: #546e7a; /* Grey Blue */
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 8px;
+            margin-top: 5px;
+            background-color: #e7e7eb; /* Light grey background for list items */
+            color: #333; /* Dark text for readability */
+            border: 1px solid #dee2e6; /* Grey border */
+        }
+
+        li:hover {
+            background-color: #cfd2d6; /* Darker grey background on hover */
+            color: #0056b3; /* Blue text on hover */
+        }
+
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <button class="home-button" onclick="location.href='{{ url_for('dashboard') }}'">Home</button>
+    <h1>Find a Roommate</h1>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <div>
+            <label for="move_in_date">Move-in Date:</label>
+            {{ form.move_in_date }}
+            {% for error in form.move_in_date.errors %}
+                <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            <label for="gender_preference">Gender Preference:</label>
+            {{ form.gender_preference }}
+            {% for error in form.gender_preference.errors %}
+                <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            <label for="max_price">Maximum Price:</label>
+            {{ form.max_price }}
+            {% for error in form.max_price.errors %}
+                <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if roommates %}
+        <h2>Results:</h2>
+        <ul>
+            {% for roommate in roommates %}
+                <li>{{ roommate.user.first_name }} {{ roommate.user.last_name }} - ${{ roommate.max_price }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h2>No roommates found</h2>
+    {% endif %}
+</body>
+</html>
